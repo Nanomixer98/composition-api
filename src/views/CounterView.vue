@@ -10,7 +10,7 @@
 import useCounter from '@/composables/useCounter';
 
 export default {
-  name: 'Counter',
+  name: 'CounterView',
   props: { },
   setup() {
     const { counter, increase, decrease } = useCounter(14)
