@@ -26,38 +26,26 @@
         v-for="todo in getTodosByTab"
         :key="todo.id"
         :class="{ completed: todo.completed }"
+        @dblclick="toggleTodo(todo.id)"
       >
-        <div @dblclick="toggleTodo(todo.id)">{{ todo.text }}</div>
+        {{ todo.text }}
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-import { computed, ref } from "vue";
-import { useStore } from "vuex";
+import useTodos from "@/composables/useTodos";
 
 export default {
   setup() {
-    const store = useStore();
-    // console.log(store);
-    const currentTab = ref("all");
+    const { currentTab, pending, getTodosByTab, toggleTodo } = useTodos();
 
     return {
       currentTab,
-
-      // allTodos: computed(() => store.getters["allTodos"]),
-      // completed: computed(() => store.getters["completedTodos"]),
-      pending: computed(() => store.getters["pendingTodos"]),
-
-      getTodosByTab: computed(() =>
-        store.getters["getTodosByTab"](currentTab.value)
-      ),
-
-      // Methods
-      toggleTodo: (id) => {
-        store.commit("toggleTodo", id);
-      },
+      pending,
+      getTodosByTab,
+      toggleTodo,
     };
   },
 };

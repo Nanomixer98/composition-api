@@ -12,7 +12,7 @@ export default createStore({
   },
   getters: {
     pendingTodos(state, getters, rootState) {
-      console.log({ state, getters, rootState });
+      // console.log({ state, getters, rootState });
       return state.todos.filter( todo => !todo.completed)
     },
     allTodos: (state, getters, rootState) => {
@@ -32,7 +32,7 @@ export default createStore({
   mutations: {
     toggleTodo(state, id) {
       const todoIdx = state.todos.findIndex(todo => todo.id == id)
-      console.log(todoIdx);
+      // console.log(todoIdx);
       state.todos[todoIdx].completed = !state.todos[todoIdx].completed
     }
   },
