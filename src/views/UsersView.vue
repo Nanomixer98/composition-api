@@ -4,12 +4,11 @@
   <h5 v-if="errorMessage">{{ errorMessage }}</h5>
 
   <div v-if="users.length > 0">
-    <ul>
-        <li v-for="{ first_name, last_name, email, id } in users" :key="id">
-            <h4>{{  first_name }} {{ last_name }}</h4>
-            <h5>{{  email }}</h5>
-        </li>
-    </ul>
+    <user-list :users="users" v-slot="{ user }">
+      <!-- {{ user }}  -->
+      <h5>{{ user.first_name }} {{ user.last_name }}</h5>
+      <span>{{ user.email }}</span>
+    </user-list>
   </div>
 
   <button @click="prevPage">Atras</button>
@@ -18,42 +17,41 @@
 </template>
 
 <script>
-import useUsers from '@/composables/useUsers';
+import UserList from "@/components/UserList.vue";
+import useUsers from "@/composables/useUsers";
 
 export default {
+  components: { UserList },
+  setup() {
+    const { users, isLoading, currentPage, errorMessage, prevPage, nextPage } =
+      useUsers();
 
-    setup() {
-        const { users, isLoading, currentPage, errorMessage, prevPage, nextPage } = useUsers()
-
-        return {
-            currentPage,
-            errorMessage,
-            isLoading,
-            nextPage,
-            prevPage,
-            users,
-            // ...useUsers()
-        }
-    }
-
-}
+    return {
+      currentPage,
+      errorMessage,
+      isLoading,
+      nextPage,
+      prevPage,
+      users,
+      // ...useUsers()
+    };
+  },
+};
 </script>
 
 <style scoped>
-
 h2 {
-    text-align: center;
-    width: 100%;
+  text-align: center;
+  width: 100%;
 }
 
 div {
-    display: flex;
-    justify-content: center;
-    text-align: center;
+  display: flex;
+  justify-content: center;
+  text-align: center;
 }
 
 ul {
-    width: 250px;
+  width: 250px;
 }
-
 </style>
