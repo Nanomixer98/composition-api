@@ -9,15 +9,13 @@ const useTodos = () => {
         currentTab,
 
         pending: computed(() => store.getters["pendingTodos"]),
-
         getTodosByTab: computed(() =>
             store.getters["getTodosByTab"](currentTab.value)
         ),
 
         // Methods
-        toggleTodo: (id) => {
-            store.commit("toggleTodo", id);
-        },
+        toggleTodo: (id) => store.commit("toggleTodo", id),
+        createTodo: (text) => store.commit("createTodo", text)
     };
 }
 
